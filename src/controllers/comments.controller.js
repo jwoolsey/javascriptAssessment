@@ -22,7 +22,6 @@ class CommentsController {
       let commentObj = new Comment(imageId, comment);
       return commentObj;
       }
-    this.render(commentObj);
     }
 
   render(commentObj) {

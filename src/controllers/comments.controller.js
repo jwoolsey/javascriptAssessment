@@ -9,22 +9,26 @@ class CommentsController {
   }
 
   addCommentFormListener() {
+    event.preventDefault();
     // create comment form listener code here
     //Trigger function on form submit
-    var comment = this.comments;
-    for (var i=0; i <= comment.length; i++) {
-      comment[i].addEventListener('submit', newComment, false);
+    $(.'add-comment').addEventListener('submit', newComment, false);
 
-      function newComment (comment) {
-        event.preventDefault();
-        //Grab imageId + comment and create new variable
-        var imageId = parseInt($(this).parents('h2').next('ul').data('id'));
-        comment = $(this).parents('ul').find('.commentContent').value;
-        var commentObj = new Comment(imageId, comment);
+    function newComment (comment) {
+      //Grab imageId + comment and create new variable
+      let image = $(this).closest('.image');
+      let imageId = Number(image.find('ul').attr('data-id'));
+      let comment = $(this).find('.commentContent').value;
+      let commentObj = new Comment(imageId, comment);
 
-        return commentObj;
+      return commentObj;
       }
       this.render(commentObj);
     }
+  }
+
+  render(commentObj) {
+    //Choose correct 'ul' and append to it
+    $('#comments-${commentObj.ImageId}').append(commentObj.commentEl());
   }
 }

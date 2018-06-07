@@ -22,10 +22,12 @@ class CommentsController {
       let commentObj = new Comment(imageId, comment);
       return commentObj;
       }
+    this.render(commentObj);
     }
 
   render(commentObj) {
     //Choose correct 'ul' and append to it
-    $('#comments-${commentObj.ImageId}').append(commentObj.commentEl());
+    const commentList = $('#comments-${commentObj.ImageId}');
+    commentList.append(commentObj.commentEl());
   }
 }
